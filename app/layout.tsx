@@ -16,7 +16,7 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: "PayTract",
-  description: "Manage client payments the smarter way.",
+  description: "Manage client payments the smarter way.", //TBD
 };
 
 export default function RootLayout({
