@@ -1,13 +1,21 @@
-import { apiClient } from "@/lib/axios";
-import { ApiResponse } from "@/types/api";
-import { LoginCredentials, AuthResponse } from "../types";
+import { axiosInstance } from '@/lib/axios';
+import { API_ENDPOINTS } from '@/config/constants';
+import { LoginCredentials, AuthResponse } from '../types';
+import { ApiResponse } from '@/types/api';
 
-export const loginWithEmail = async (
-  data: LoginCredentials,
-): Promise<AuthResponse> => {
-  const response = await apiClient.post<ApiResponse<AuthResponse>>(
-    "/auth/login",
-    data,
-  );
-  return response.data.data;
+export const login = async (credentials: LoginCredentials): Promise<AuthResponse> => {
+  // Production implementation:
+  // const response = await axiosInstance.post<ApiResponse<AuthResponse>>(API_ENDPOINTS.AUTH.LOGIN, credentials);
+  // return response.data.data;
+  
+  // Mock implementation for boilerplate demonstration
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        user: { id: '1', email: credentials.email, name: 'Test User' },
+        accessToken: 'mock_access_token',
+        refreshToken: 'mock_refresh_token'
+      });
+    }, 1000);
+  });
 };

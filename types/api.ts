@@ -1,7 +1,7 @@
 export interface ApiResponse<T> {
   data: T;
   message: string;
-  success: boolean;
+  status: number;
 }
 
 export interface PaginatedResponse<T> {
@@ -10,5 +10,6 @@ export interface PaginatedResponse<T> {
     currentPage: number;
     totalPages: number;
     totalItems: number;
+    itemsPerPage: number;
   };
 }
