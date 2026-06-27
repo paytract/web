@@ -1,9 +1,9 @@
-name: Deploy API to SERVER
+name: Deploy CLIENT to SERVER
 
 on:
   push:
     branches:
-      - main
+      - staging
 
 permissions:
   contents: read
@@ -69,7 +69,7 @@ jobs:
 
             # Create .env with secrets
             
-            echo 'EXAMPLE=${ secrets.EXAMPLE }' >> .env
+            echo 'EXAMPLE=secrets.EXAMPLE' >> .env
 
            
             # Modify docker-compose.yml to use GHCR image

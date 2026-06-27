@@ -1,4 +1,4 @@
-name: paytract
+name: "paytract"
 services:
   web:
     build:
