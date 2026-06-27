@@ -1,32 +1,16 @@
-import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
-import "./globals.css";
-import { AppProvider } from "@/components/providers/AppProvider";
-
-// Configure Fonts
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-});
+import type {Metadata} from 'next';
+import './globals.css'; // Global styles
+import { AppProvider } from '@/components/providers/AppProvider';
 
 export const metadata: Metadata = {
-  title: "PayTract",
-  description: "Manage client payments the smarter way.",
+  title: 'PayTract',
+  description: 'Start managing client payments the smarter way.',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
-      <body className="font-sans bg-white text-text-main antialiased">
+    <html lang="en">
+      <body suppressHydrationWarning>
         <AppProvider>{children}</AppProvider>
       </body>
     </html>

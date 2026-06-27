@@ -3,13 +3,12 @@ export interface LoginCredentials {
   password: string;
 }
 
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-}
-
 export interface AuthResponse {
-  user: User;
-  token: string;
+  user: {
+    id: string;
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
 }

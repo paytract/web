@@ -1,8 +1,29 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  /* Brand Theme Colors */
+  --color-brand-primary: #1a47cc;
+  --color-brand-hover: #1540b8;
+  --color-bg-panel-light: #f8f7f5;
+  --color-bg-panel-dark: #1a47cc;
+  --color-bg-app: #f0f2f8;
+  
+  /* Text Colors */
+  --color-text-title: #111111;
+  --color-text-muted: #888888;
+  
+  /* Borders & Radius */
+  --color-border-subtle: rgba(0, 0, 0, 0.12);
+  --color-border-card: rgba(0, 0, 0, 0.08);
+}
 
 @layer base {
+  body {
+    background-color: var(--color-bg-app);
+    color: var(--color-text-title);
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  }
+
   input:focus {
     outline: none;
   }
