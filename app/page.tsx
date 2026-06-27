@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import logo from "@/assets/logo.png";
+import logo from "@/public/assets/logo.png";
 
 export default function LandingPage() {
   return (
