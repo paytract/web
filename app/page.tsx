@@ -20,7 +20,7 @@ export default function LandingPage() {
         </div>
         <div className="flex gap-4">
           <Button variant="ghost" asChild>
-            <Link href="/sign-up">Sign In</Link>
+            <Link href="/login">Sign In</Link>
           </Button>
           <Button asChild>
             <Link href="/sign-up">Get Started</Link>
