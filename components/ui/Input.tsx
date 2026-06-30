@@ -24,7 +24,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div className="relative flex items-center w-full group">
           {/* Prefix (e.g., +234) */}
           {prefix && (
-            <div className="absolute left-0 top-0 bottom-0 flex items-center px-3 border-r border-slate-200 bg-slate-50 text-slate-500 rounded-l-lg text-[13px] select-none z-10">
+            <div className="absolute left-0 top-0 bottom-0 flex items-center z-20">
               {prefix}
             </div>
           )}
@@ -41,7 +41,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               "focus:outline-none focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 focus:bg-white",
               "disabled:opacity-50 disabled:cursor-not-allowed",
               // Conditional Padding for Prefix/Icon
-              prefix && "pl-16",
+              prefix && "pl-25",
               icon && "pr-10",
               // Error States
               error &&
