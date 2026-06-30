@@ -7,8 +7,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Briefcase,
-  Users,
-  FileText,
+  Receipt,
   Settings,
   LogOut,
   X,
@@ -21,9 +20,8 @@ import { setSidebarOpen } from "@/store/slices/appSlice";
 
 const navItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Gigs & Accounts", href: "/gigs", icon: Briefcase },
-  { name: "Clients", href: "/clients", icon: Users },
-  { name: "Contracts", href: "/contracts", icon: FileText },
+  { name: "My Gigs", href: "/gigs", icon: Briefcase },
+  { name: "Transactions", href: "/transactions", icon: Receipt },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
@@ -44,7 +42,7 @@ export const Sidebar = () => {
           onClick={() => dispatch(setSidebarOpen(false))}
         >
           <Image src={logo} alt="PayTract" width={30} height={28} priority />
-          <h1 className=" text-[26px] font-semibold ">
+          <h1 className=" text-[26px] font-semibold ml-2">
             <span className="font-bold text-[#001F63]">ay</span>
             <span className="text-sky-400">Tract</span>
           </h1>
