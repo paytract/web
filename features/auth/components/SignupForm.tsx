@@ -22,6 +22,7 @@ import Image from "next/image";
 import logo from "@/public/assets/logo.png";
 import { COUNTRIES, Country } from "../utils/countries";
 import Link from "next/link";
+import { useSignup } from "../hooks/useSignup";
 
 const signupSchema = z
   .object({
@@ -45,15 +46,30 @@ export const SignupForm = () => {
   const [selectedCountry, setSelectedCountry] = useState<Country>(COUNTRIES[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const { mutate: submitSignup, isPending } = useSignup();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
+    mode: "onChange",
   });
 
-  const onSubmit = (data: SignupFormValues) => console.log(data);
+  const onSubmit = (data: SignupFormValues) => {
+    const full_name = `${data.firstName.trim()} ${data.lastName.trim()}`;
+
+    const rawPhone = data.phone.replace(/^0+/, "");
+    const phone = `${selectedCountry.code}${rawPhone}`;
+
+    submitSignup({
+      email: data.email,
+      password: data.password,
+      full_name,
+      phone,
+    });
+  };
 
   return (
     <div className="w-full flex flex-col lg:items-center">
@@ -102,13 +118,13 @@ export const SignupForm = () => {
           <div className="grid grid-cols-2 gap-3.5">
             <Input
               label="First name"
-              placeholder="Emeka"
+              placeholder="Bruce"
               {...register("firstName")}
               error={errors.firstName?.message}
             />
             <Input
               label="Last name"
-              placeholder="Okafor"
+              placeholder="Wayne"
               {...register("lastName")}
               error={errors.lastName?.message}
             />
@@ -117,14 +133,14 @@ export const SignupForm = () => {
           <Input
             label="Email address"
             type="email"
-            placeholder="emeka@company.com"
+            placeholder="batman@company.com"
             {...register("email")}
             error={errors.email?.message}
           />
 
           <Input
             label="Phone Number"
-            placeholder="800 000 0000"
+            placeholder="800 000 1939"
             {...register("phone")}
             error={errors.phone?.message}
             prefix={
@@ -183,12 +199,47 @@ export const SignupForm = () => {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-            {/* password inputs */}
+            <Input
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              icon={
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-slate-400 hover:text-slate-600"
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              }
+              {...register("password")}
+              error={errors.password?.message}
+            />
+            <Input
+              label="Confirm"
+              type={showConfirmPassword ? "text" : "password"}
+              icon={
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="text-slate-400 hover:text-slate-600"
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff size={16} />
+                  ) : (
+                    <Eye size={16} />
+                  )}
+                </button>
+              }
+              {...register("confirmPassword")}
+              error={errors.confirmPassword?.message}
+            />
           </div>
 
           <Button
             type="submit"
             className="w-full h-12 mt-4 font-semibold text-base"
+            isLoading={isPending}
+            disabled={isPending}
           >
             Create account <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
