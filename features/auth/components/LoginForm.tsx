@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Eye, EyeOff, ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useLogin } from "../hooks/useLogin";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -19,15 +20,25 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { mutate: submitLogin, isPending } = useLogin();
+
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormValues) => console.log(data);
+  const emailValue = watch("email");
+  const forgotPasswordHref = emailValue
+    ? `/forgot-password?email=${encodeURIComponent(emailValue)}`
+    : "/forgot-password";
+
+  const onSubmit = (data: LoginFormValues) => {
+    submitLogin({ email: data.email, password: data.password });
+  };
 
   return (
     <div className="w-full flex flex-col lg:items-center">
@@ -89,7 +100,7 @@ export const LoginForm = () => {
             />
             <div className="text-right">
               <Link
-                href="/forgot-password"
+                href={forgotPasswordHref}
                 className="text-[13px] text-brand-primary font-semibold hover:underline"
               >
                 Forgot password?
@@ -97,7 +108,12 @@ export const LoginForm = () => {
             </div>
           </div>
 
-          <Button type="submit" className="w-full h-12 mt-4 font-semibold">
+          <Button
+            type="submit"
+            className="w-full h-12 mt-4 font-semibold"
+            isLoading={isPending}
+            disabled={isPending}
+          >
             Sign In <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
 

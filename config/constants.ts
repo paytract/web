@@ -8,9 +8,10 @@ export const LOCAL_STORAGE_KEYS = {
 
 export const API_ENDPOINTS = {
   AUTH: {
-    LOGIN: "/api/v1/user/auth/login",
+    LOGIN: "/api/v1/user/auth/signin",
     SIGNUP: "/api/v1/user/auth/signup",
-    REFRESH_TOKEN: "/api/v1/user/auth/refresh",
-    VERIFY_EMAIL: "/api/v1/user/auth/verify-email",
+    // REFRESH_TOKEN: "/api/v1/user/auth/refresh",
+    VERIFY_EMAIL: "/api/v1/user/auth/signup/verify",
+    RESEND_VERIFY: "/api/v1/user/auth/signup/resend-verification",
   },
 };

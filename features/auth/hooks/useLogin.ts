@@ -1,13 +1,23 @@
-import { useMutation } from '@tanstack/react-query';
-import { login } from '../api/login';
-import { LoginCredentials, AuthResponse } from '../types';
+import { useMutation } from "@tanstack/react-query";
+import { login } from "../api/login";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { LOCAL_STORAGE_KEYS } from "@/config/constants";
 
 export const useLogin = () => {
-  return useMutation<AuthResponse, Error, LoginCredentials>({
-    mutationFn: (credentials) => login(credentials),
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: login,
     onSuccess: (data) => {
-      // Typically store tokens or dispatch Redux action here
-      console.log('Login successful', data);
+      toast.success("Welcome back!");
+
+      router.push("/dashboard");
+    },
+    onError: (error: any) => {
+      toast.error(
+        error.response?.data?.message || "Invalid email or password.",
+      );
     },
   });
 };
