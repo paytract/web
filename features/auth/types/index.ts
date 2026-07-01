@@ -1,14 +1,14 @@
-export interface LoginCredentials {
+export interface SignupPayload {
   email: string;
   password: string;
+  full_name: string;
+  phone: string;
 }
 
-export interface AuthResponse {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-  };
-  accessToken: string;
-  refreshToken: string;
+export interface SignupResponseData {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
 }
