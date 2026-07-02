@@ -30,3 +30,16 @@ export interface LoginResponseData {
   last_name: string;
   phone: string;
 }
+
+export interface PasswordResetPayload {
+  email: string;
+}
+
+export interface PasswordResetCheckPayload {
+  user_id: string;
+  token: string;
+}
+
+export interface PasswordResetConfirmPayload extends PasswordResetCheckPayload {
+  new_password: string;
+}
