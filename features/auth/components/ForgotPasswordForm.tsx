@@ -9,15 +9,31 @@ import { Button } from "@/components/ui/Button";
 import { ArrowLeft, Send } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
+import { useRequestReset } from "../hooks/usePasswordReset";
 
 const schema = z.object({ email: z.string().email("Valid email is required") });
 
 export const ForgotPasswordForm = () => {
+  const searchParams = useSearchParams();
+  const emailParam = searchParams.get("email");
+
+  const { mutate: requestReset, isPending } = useRequestReset();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(schema) });
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      email: emailParam || "",
+    },
+  });
+
+  const onSubmit = (data: { email: string }) => {
+    requestReset({ email: data.email });
+  };
 
   return (
     <div className="w-full flex flex-col lg:items-center">
@@ -52,19 +68,23 @@ export const ForgotPasswordForm = () => {
           </p>
         </div>
 
-        <form
-          onSubmit={handleSubmit((d) => console.log(d))}
-          className="space-y-6"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <Input
             label="Email Address"
             placeholder="Enter your email"
             {...register("email")}
             error={errors.email?.message as string}
           />
-          <Button className="w-full h-12 font-semibold">
+
+          <Button
+            type="submit"
+            isLoading={isPending}
+            disabled={isPending}
+            className="w-full h-12 font-semibold"
+          >
             Send Reset Link <Send size={16} className="ml-2" />
           </Button>
+
           <div className="text-center">
             <Link
               href="/login"

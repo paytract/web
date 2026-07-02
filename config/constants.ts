@@ -13,5 +13,8 @@ export const API_ENDPOINTS = {
     // REFRESH_TOKEN: "/api/v1/user/auth/refresh",
     VERIFY_EMAIL: "/api/v1/user/auth/signup/verify",
     RESEND_VERIFY: "/api/v1/user/auth/signup/resend-verification",
+    PASSWORD_RESET: "/api/v1/user/auth/password/reset",
+    PASSWORD_RESET_CHECK: "/api/v1/user/auth/password/reset/check",
+    PASSWORD_RESET_CONFIRM: "/api/v1/user/auth/password/reset/confirm",
   },
 };
